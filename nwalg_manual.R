@@ -57,11 +57,13 @@ for(i in 2:length(seq1)){
       d <- aln1.df[i-1, j-1] + mismatch
     }
   aln1.df[i,j] <- max(b,r,d)
- # traceback.df[i,j] <- ifelse(which.max(b,r,d) == b,  )
+  m <- which.max(c(b,r,d))
+  traceback.df[i,j] <- ifelse(m == 1, "B", ifelse(m == 2, "R", "D") )
+  #traceback.df[i,j] <- ifelse(max(b,r,d) == b, "B", ifelse(max(b,r,d) == r, "R", "D") )
   }
 }
 aln1.df
-
+traceback.df
 # ---------------------------- traceback
 
 ?which.max # explore this 
@@ -73,18 +75,19 @@ rownames(final.df) <- c("Sequence 1", "Sequence 2")
 colnames(final.df) <- c(1:(length(seq1)-1))
 final.df
 
+# ----------------------------- traceback part 2 
+# use while loop? 
 
-# traceback itself
-for(i in length(seq1):2){
-  for(j in length(seq2):2){
-    x <- aln1.df[i,j]
-    y <- aln1.df[i+1, j]
-    z <- aln1.df[i, j+1]
-    if(x > y){
+# old traceback 
+#for(i in length(seq1):2){
+#  for(j in length(seq2):2){
+#    x <- aln1.df[i,j]
+#    y <- aln1.df[i+1, j]
+#    z <- aln1.df[i, j+1]
+#    if(x > y){
       
-    }
-  }
-}
+#    }
+#  }}
 
 
 ############################## OLD CODE  - delete when final 
@@ -93,6 +96,8 @@ for(i in length(seq1):2){
 # seq1 <- c(NA, "A", "C", "T", "G", "A", "T", "T", "C", "A")
 # seq2 <- c(NA, "A", "C", "G", "C", "A", "T", "C", "A")
 
+#  --  C  TC
+#  AC   -  AT
   
 
   # for(i in aln1.df){
