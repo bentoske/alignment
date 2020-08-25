@@ -78,5 +78,4 @@ wunsch <- function(){
     }
     finalalignment <- rbind(seqfinal1, seqfinal2)
     return(finalalignment)
-  
 }
