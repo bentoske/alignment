@@ -32,12 +32,16 @@ needleman <- function(){
     aln1.df[1,i] <- gap * (i-1)
     traceback.df[1,i] <- "R"
   }
+#  aln1.df
+#  traceback.df
   
   # ---------------------------- int columns
   for(i in 1:length(seq1)){
     aln1.df[i,1] <- gap * (i-1)
     traceback.df[i,1] <- "B"
   }
+#  aln1.df
+#  traceback.df
   
   # ---------------------------- rest of matrix
   for(i in 2:length(seq1)){
@@ -55,45 +59,9 @@ needleman <- function(){
     #traceback.df[i,j] <- ifelse(max(b,r,d) == b, "B", ifelse(max(b,r,d) == r, "R", "D") )
     }
   }
-  return(aln1.df)
+#  aln1.df
   return(traceback.df)
-} # END OF FUNCTION 
-
-# Working space for while loop to condense matrixes 
-
-# create empty vectors for alignments
-seqfinal1 <- c()
-seqfinal2 <- c()
-
-# redefine i and j
-i <- nrow(aln1.df)
-j <- ncol(aln1.df)
-
-while(i > 1 && j > 1){
-  if(aln1.df[i,j] == aln1.df[i-1,j-1] + match){
-    seqfinal1 <- c(rownames(aln1.df)[i], seqfinal1)
-    seqfinal2 <- c(colnames(aln1.df)[j], seqfinal2)
-    j <- j - 1
-    i <- i - 1
-  } else if(aln1.df[i,j] == aln1.df[i-1,j] + gap){
-    seqfinal1 <- c(rownames(aln1.df)[i], seqfinal1)
-    seqfinal2 <- c("-", seqfinal2)
-    i <- i - 1
-  } else if(aln1.df[i,j] == aln1.df[i,j-1] + gap){
-    seqfinal1 <- c("-", seqfinal1)
-    seqfinal2 <- c(colnames(aln1.df)[j], seqfinal2)
-    j <- j - 1
-  } 
 }
-finalalignment <- rbind(seqfinal1, seqfinal2)
-return(finalalignment)
-
-
-
-
-
-
-
 # ---------------------------- traceback
 
 ?which.max # explore this 
@@ -151,7 +119,8 @@ traceback.df
 
 
 # next steps
-# figure out other traceback 
+# figure out other traceback
+                   # THIS IS FOUND ON WUNSCH.R
 # run script from terminal 
 # read sequences from FASTA 
 
