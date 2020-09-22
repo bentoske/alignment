@@ -1,4 +1,4 @@
-install.packages("seqinr", repos="http://cran.us.r-project.org")
+# install.packages("seqinr", repos="http://cran.us.r-project.org") # you may have to remove this or re-add it for the session
 library(seqinr)
 
 waterman <- function(fasta){
@@ -13,11 +13,9 @@ waterman <- function(fasta){
   rownames(aln1) <- seq1
   colnames(aln1) <- seq2
   aln1.df <- as.data.frame(aln1)
-  #  aln1.df
   
   # ---------------------------- copy data frame
   traceback.df <- as.data.frame(aln1.df)
-  #  traceback.df
   
   # ---------------------------- assign variables
   gap <- -1
@@ -45,12 +43,7 @@ waterman <- function(fasta){
     }
   }
   
-  print(aln1.df)
-  # create empty vectors for alignments
-  seqfinal1 <- c()
-  seqfinal2 <- c()
-  
-  # find max value in data frame 
+  # find max value(s) in data frame 
   q <- which(aln1.df==max(aln1.df), arr.ind=T)
   s <- 1 # this sets index value for while loop
   
@@ -84,10 +77,15 @@ waterman <- function(fasta){
         i <- i - 1
       }
       # how can I make this next part output 4 different fasta files instead of these 2
-      # 
-      write.fasta(sequences = list(seqfinal1,seqfinal2), names = names(sequences), file.out = paste0("aligned_",basename(fasta)))
-      s <- s+1
     }
+    if(s == 1){ 
+      write.fasta(sequences = list(seqfinal1,seqfinal2), names = names(sequences), 
+                  file.out = paste0("aligned_",basename(fasta)), open = "w")
+    }else{
+      write.fasta(sequences = list(seqfinal1,seqfinal2), names = names(sequences), 
+                  file.out = paste0("aligned_",basename(fasta)), open = "a")
+    }
+    s <- s+1
 }
 }
 
